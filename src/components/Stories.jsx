@@ -59,7 +59,7 @@ export default function Stories() {
           onClick={prev}
           disabled={offset === 0}
           aria-label="Назад"
-        >&#8249;</button>
+        >{"<"}</button>
 
         <div className={styles.grid}>
           {STORIES.slice(offset, offset + visible).map(story => (
@@ -85,7 +85,7 @@ export default function Stories() {
           onClick={next}
           disabled={offset >= max}
           aria-label="Вперёд"
-        >&#8250;</button>
+        >{">"}</button>
       </div>
     </section>
   )
