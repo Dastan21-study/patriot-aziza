@@ -4,7 +4,6 @@ import Hero from './components/Hero'
 import Features from './components/Features'
 import Stories from './components/Stories'
 import Gallery from './components/Gallery'
-import Footer from './components/Footer'
 
 export default function App() {
   return (
@@ -18,7 +17,6 @@ export default function App() {
           <Gallery />
         </div>
       </main>
-      <Footer />
     </>
   )
 }
