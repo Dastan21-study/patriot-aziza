@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// Чтобы добавить новый вопрос — просто добавь объект в этот массив
 const questions = [
   {
     q: "Какой город является столицей Казахстана?",
@@ -19,9 +20,24 @@ const questions = [
     correct: 1,
     fact: "Домбыра — двухструнный щипковый инструмент, символ казахской культуры. В 2022 году ЮНЕСКО включила его в список нематериального наследия.",
   },
+  // Пример как добавить новый вопрос:
+  // {
+  //   q: "Текст вопроса?",
+  //   options: ["Вариант А", "Вариант Б", "Вариант В", "Вариант Г"],
+  //   correct: 0,   // индекс правильного ответа (0 = первый вариант)
+  //   fact: "Интересный факт после ответа.",
+  // },
 ];
 
 const LETTERS = ["А", "Б", "В", "Г"];
+
+// Результат считается по проценту правильных ответов — работает при любом кол-ве вопросов
+function getResult(score, total) {
+  const pct = score / total;
+  if (pct === 1)  return { color: "#1D9E75", bg: "#E1F5EE", msg: "Отлично! Вы знаток Казахстана!" };
+  if (pct >= 0.6) return { color: "#BA7517", bg: "#FAEEDA", msg: "Неплохо, но можно лучше!" };
+  return              { color: "#D85A30", bg: "#FAECE7", msg: "Попробуйте ещё раз!" };
+}
 
 export default function KazakhstanQuiz() {
   const [current, setCurrent] = useState(0);
@@ -29,6 +45,7 @@ export default function KazakhstanQuiz() {
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
 
+  const total = questions.length;
   const q = questions[current];
   const answered = selected !== null;
 
@@ -39,7 +56,7 @@ export default function KazakhstanQuiz() {
   }
 
   function handleNext() {
-    if (current + 1 >= questions.length) {
+    if (current + 1 >= total) {
       setFinished(true);
     } else {
       setCurrent((c) => c + 1);
@@ -54,24 +71,20 @@ export default function KazakhstanQuiz() {
     setFinished(false);
   }
 
-  const progress = ((current + (answered ? 1 : 0)) / questions.length) * 100;
-
-  const resultConfig = [
-    { color: "#D85A30", bg: "#FAECE7", msg: "Попробуйте ещё раз!" },
-    { color: "#BA7517", bg: "#FAEEDA", msg: "Неплохо, но можно лучше!" },
-    { color: "#1D9E75", bg: "#E1F5EE", msg: "Отлично! Вы знаток Казахстана!" },
-  ];
+  const progress = ((current + (answered ? 1 : 0)) / total) * 100;
 
   if (finished) {
-    const res = resultConfig[score];
+    const res = getResult(score, total);
     return (
       <div style={styles.wrap}>
         <div style={styles.resultBox}>
           <div style={{ ...styles.scoreCircle, background: res.bg, color: res.color }}>
-            {score}/3
+            {score}/{total}
           </div>
           <p style={styles.resultMsg}>{res.msg}</p>
-          <p style={styles.resultSub}>Вы ответили верно на {score} из 3 вопросов</p>
+          <p style={styles.resultSub}>
+            Вы ответили верно на {score} из {total} вопросов
+          </p>
           <button style={styles.restartBtn} onClick={handleRestart}>
             Пройти снова
           </button>
@@ -86,28 +99,31 @@ export default function KazakhstanQuiz() {
         <div style={{ ...styles.progressFill, width: `${progress}%` }} />
       </div>
 
-      <p style={styles.qLabel}>Вопрос {current + 1} из {questions.length}</p>
+      <p style={styles.qLabel}>Вопрос {current + 1} из {total}</p>
       <p style={styles.qText}>{q.q}</p>
 
       <div style={styles.options}>
         {q.options.map((option, i) => {
-          let extra = {};
-          if (answered) {
-            if (i === q.correct) extra = styles.optCorrect;
-            else if (i === selected) extra = styles.optWrong;
-          }
+          const isCorrect = answered && i === q.correct;
+          const isWrong = answered && i === selected && i !== q.correct;
           return (
             <button
               key={i}
-              style={{ ...styles.optBtn, ...extra }}
+              style={{
+                ...styles.optBtn,
+                ...(isCorrect ? styles.optCorrect : {}),
+                ...(isWrong ? styles.optWrong : {}),
+              }}
               onClick={() => handleSelect(i)}
               disabled={answered}
             >
-              <span style={{
-                ...styles.letter,
-                ...(answered && i === q.correct ? styles.letterCorrect : {}),
-                ...(answered && i === selected && i !== q.correct ? styles.letterWrong : {}),
-              }}>
+              <span
+                style={{
+                  ...styles.letter,
+                  ...(isCorrect ? styles.letterCorrect : {}),
+                  ...(isWrong ? styles.letterWrong : {}),
+                }}
+              >
                 {LETTERS[i]}
               </span>
               {option}
@@ -117,10 +133,12 @@ export default function KazakhstanQuiz() {
       </div>
 
       {answered && (
-        <div style={{
-          ...styles.feedback,
-          ...(selected === q.correct ? styles.feedbackCorrect : styles.feedbackWrong),
-        }}>
+        <div
+          style={{
+            ...styles.feedback,
+            ...(selected === q.correct ? styles.feedbackCorrect : styles.feedbackWrong),
+          }}
+        >
           {selected === q.correct ? "✓ Правильно! " : "✗ Неверно. "}
           {q.fact}
         </div>
@@ -128,7 +146,7 @@ export default function KazakhstanQuiz() {
 
       {answered && (
         <button style={styles.nextBtn} onClick={handleNext}>
-          {current === questions.length - 1 ? "Посмотреть результат →" : "Следующий вопрос →"}
+          {current === total - 1 ? "Посмотреть результат →" : "Следующий вопрос →"}
         </button>
       )}
     </div>
@@ -157,15 +175,15 @@ const styles = {
   },
   qLabel: {
     fontSize: 13,
-    color: "#ffffff",
-    marginBottom: 8,
+    color: "#888",
+    margin: "0 0 8px",
   },
   qText: {
     fontSize: 18,
     fontWeight: 500,
-    marginBottom: 20,
     lineHeight: 1.5,
     color: "#111",
+    margin: "0 0 20px",
   },
   options: {
     display: "flex",
@@ -184,6 +202,7 @@ const styles = {
     fontSize: 15,
     textAlign: "left",
     cursor: "pointer",
+    transition: "border-color 0.15s, background 0.15s",
   },
   optCorrect: {
     borderColor: "#0F6E56",
@@ -262,13 +281,13 @@ const styles = {
   resultMsg: {
     fontSize: 18,
     fontWeight: 500,
-    marginBottom: 8,
+    margin: "0 0 8px",
     color: "#111",
   },
   resultSub: {
     fontSize: 14,
     color: "#888",
-    marginBottom: 24,
+    margin: "0 0 24px",
   },
   restartBtn: {
     padding: "11px 28px",
