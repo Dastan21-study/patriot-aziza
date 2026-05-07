@@ -157,7 +157,7 @@ const styles = {
   },
   qLabel: {
     fontSize: 13,
-    color: "#888",
+    color: "#ffffff",
     marginBottom: 8,
   },
   qText: {
