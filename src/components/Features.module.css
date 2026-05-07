@@ -17,6 +17,13 @@
   border-right: 1px solid rgba(255,255,255,.15);
   transition: background .2s;
   cursor: pointer;
+
+  /* 🔥 ВАЖНО — сброс стилей кнопки */
+  background: transparent;
+  border: none;
+  outline: none;
+  color: inherit;
+  font: inherit;
 }
 
 .card:last-child { border-right: none; }
