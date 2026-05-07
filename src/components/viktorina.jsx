@@ -175,7 +175,7 @@ const styles = {
   },
   qLabel: {
     fontSize: 13,
-    color: "#888",
+    color: "#ffffff",
     margin: "0 0 8px",
   },
   qText: {
