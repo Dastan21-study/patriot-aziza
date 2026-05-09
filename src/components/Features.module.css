@@ -71,3 +71,185 @@
   .grid { grid-template-columns: 1fr; }
   .card { border-right: none; }
 }
+/* ===== БЛОК КАРТЫ ===== */
+
+.mapSection {
+  margin-top: 40px;
+
+  background: white;
+
+  border-radius: 30px;
+
+  overflow: hidden;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+
+  animation: showMap 0.4s ease;
+}
+
+@keyframes showMap {
+
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mapTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 24px 30px;
+
+  background: linear-gradient(90deg, #1565c0, #1976d2);
+
+  color: white;
+}
+
+.mapTop h2 {
+  font-size: 32px;
+}
+
+.closeBtn {
+  width: 45px;
+  height: 45px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: white;
+  color: #1565c0;
+
+  font-size: 22px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.closeBtn:hover {
+  transform: rotate(90deg);
+}
+
+.mapContent {
+  display: flex;
+
+  min-height: 700px;
+}
+
+/* ===== КАРТА ===== */
+
+.mapSide {
+  flex: 1;
+
+  background: #edf5ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+}
+
+.mapImage {
+  width: 100%;
+  max-width: 950px;
+
+  object-fit: contain;
+
+  border-radius: 24px;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* ===== ИНФОРМАЦИЯ ===== */
+
+.infoSide {
+  width: 420px;
+
+  background: #f8fbff;
+
+  padding: 30px;
+}
+
+.infoSide h3 {
+  font-size: 28px;
+
+  color: #1455a0;
+
+  margin-bottom: 24px;
+}
+
+.cityList {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+.cityCard {
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 20px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.cityCard h4 {
+  margin-bottom: 10px;
+
+  color: #1565c0;
+
+  font-size: 22px;
+}
+
+.cityCard p {
+  margin: 5px 0;
+
+  color: #333;
+}
+
+/* ===== ТЕЛЕФОН ===== */
+
+@media (max-width: 900px) {
+
+  .mapContent {
+    flex-direction: column;
+  }
+
+  .mapSide {
+    padding: 15px;
+  }
+
+  .infoSide {
+    width: 100%;
+  }
+
+  .mapTop {
+    padding: 18px;
+  }
+
+  .mapTop h2 {
+    font-size: 24px;
+  }
+
+  .infoSide h3 {
+    font-size: 22px;
+  }
+
+  .cityCard h4 {
+    font-size: 18px;
+  }
+
+  .cityCard p {
+    font-size: 14px;
+  }
+}
