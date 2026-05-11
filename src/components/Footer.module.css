@@ -1,0 +1,67 @@
+.footer {
+  background: linear-gradient(180deg, #0d4f94 0%, #072d5a 100%);
+  color: rgba(255,255,255,.75);
+  padding: 48px 0 24px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  margin-bottom: 20px;
+}
+
+/* Brand */
+.brand .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.logoText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+.logoTop { font-size: 18px; font-weight: 900; color: var(--white); }
+.logoBot { font-size: 14px; font-weight: 700; color: var(--gold); }
+.brand p { font-size: 13px; line-height: 1.6; opacity: .75; }
+
+/* Cols */
+.col h4 {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--gold);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.col ul li { margin-bottom: 9px; }
+.col ul li a {
+  font-size: 13px;
+  opacity: .75;
+  transition: opacity .2s, color .2s;
+}
+.col ul li a:hover { opacity: 1; color: var(--gold); }
+
+.bottom {
+  text-align: center;
+  font-size: 12px;
+  opacity: .55;
+}
+.accent { color: var(--gold); opacity: 1; }
+
+@media (max-width: 1024px) {
+  .inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .inner { grid-template-columns: 1fr; }
+}
