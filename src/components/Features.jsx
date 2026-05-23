@@ -58,9 +58,9 @@ export default function Features() {
             onClick={() => {
 
               // ВИКТОРИНА
-              if (index === 0) {
-                setOpenQuiz(true)
-              }
+             if (index === 0) {
+  setOpenQuiz(!openQuiz)
+}
 
               // КАРТА
               else if (index === 1) {
@@ -87,7 +87,7 @@ export default function Features() {
 
       {/* ВИКТОРИНА */}
       {openQuiz && (
-        <KazakhstanQuiz />
+        <KazakhstanQuiz onClose={() => setOpenQuiz(false)}/>
       )}
 
       {/* КАРТА СНИЗУ */}

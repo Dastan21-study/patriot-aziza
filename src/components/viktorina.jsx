@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-// Чтобы добавить новый вопрос — просто добавь объект в этот массив
 const questions = [
   {
     q: "Какой город является столицей Казахстана?",
@@ -136,7 +135,7 @@ function getResult(score, total) {
   return              { color: "#D85A30", bg: "#FAECE7", msg: "Попробуйте ещё раз!" };
 }
 
-export default function KazakhstanQuiz() {
+export default function KazakhstanQuiz({ onClose }) {
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState(null);
   const [score, setScore] = useState(0);
@@ -194,6 +193,9 @@ export default function KazakhstanQuiz() {
     <div style={styles.wrap}>
       <div style={styles.progressBar}>
         <div style={{ ...styles.progressFill, width: `${progress}%` }} />
+        <button style={styles.closeBtn} onClick={onClose}>
+      ✕
+    </button>
       </div>
 
       <p style={styles.qLabel}>Вопрос {current + 1} из {total}</p>
@@ -263,6 +265,10 @@ const styles = {
     borderRadius: 99,
     marginBottom: 28,
     overflow: "hidden",
+    display: "flex",
+   alignItems: "center",
+  gap: "10px",
+  marginBottom: "10px"
   },
   progressFill: {
     height: "100%",
@@ -395,4 +401,8 @@ const styles = {
     fontSize: 14,
     cursor: "pointer",
   },
+closeBtn: {
+  position: "absolute",
+  
+},
 };
