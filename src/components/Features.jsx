@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styles from './Features.module.css'
 import KazakhstanQuiz from './viktorina'
+import CreateContent from './create-content'
 
 const FEATURES = [
   { emoji: '🏅', title: 'Проходи Викторины', sub: 'Проверь свои знания!' },
@@ -42,8 +43,10 @@ const cities = [
 ]
 
 export default function Features() {
+
   const [openQuiz, setOpenQuiz] = useState(false)
   const [openMap, setOpenMap] = useState(false)
+  const [openCreate, setOpenCreate] = useState(false)
 
   return (
     <section className={styles.features}>
@@ -52,26 +55,34 @@ export default function Features() {
       <div className={styles.grid}>
 
         {FEATURES.map((f, index) => (
+
           <button
             key={f.title}
             className={styles.card}
             onClick={() => {
 
               // ВИКТОРИНА
-             if (index === 0) {
-  setOpenQuiz(!openQuiz)
-}
+              if (index === 0) {
+                setOpenQuiz(!openQuiz)
+              }
 
               // КАРТА
               else if (index === 1) {
                 setOpenMap(!openMap)
               }
 
+              // СОЗДАНИЕ КОНТЕНТА
+              else if (index === 2) {
+                setOpenCreate(!openCreate)
+              }
+
               else {
                 console.log(f.title)
               }
+
             }}
           >
+
             <div className={styles.icon}>
               {f.emoji}
             </div>
@@ -80,17 +91,21 @@ export default function Features() {
               <strong>{f.title}</strong>
               <span>{f.sub}</span>
             </div>
+
           </button>
+
         ))}
 
       </div>
 
       {/* ВИКТОРИНА */}
       {openQuiz && (
-        <KazakhstanQuiz onClose={() => setOpenQuiz(false)}/>
+        <KazakhstanQuiz
+          onClose={() => setOpenQuiz(false)}
+        />
       )}
 
-      {/* КАРТА СНИЗУ */}
+      {/* КАРТА */}
       {openMap && (
 
         <section className={styles.mapSection}>
@@ -133,6 +148,7 @@ export default function Features() {
               <div className={styles.cityList}>
 
                 {cities.map((city) => (
+
                   <div
                     key={city.name}
                     className={styles.cityCard}
@@ -145,10 +161,11 @@ export default function Features() {
                     </p>
 
                     <p>
-                      Площадь: ({city.area})
+                      Площадь: {city.area}
                     </p>
 
                   </div>
+
                 ))}
 
               </div>
@@ -158,6 +175,12 @@ export default function Features() {
           </div>
 
         </section>
+
+      )}
+
+      {/* СОЗДАНИЕ КОНТЕНТА */}
+      {openCreate && (
+        <CreateContent />
       )}
 
     </section>
