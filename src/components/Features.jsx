@@ -42,7 +42,7 @@ const cities = [
   },
 ]
 
-export default function Features() {
+export default function Features({ addStory }) {
 
   const [openQuiz, setOpenQuiz] = useState(false)
   const [openMap, setOpenMap] = useState(false)
@@ -51,7 +51,7 @@ export default function Features() {
   return (
     <section className={styles.features}>
 
-      {/* КНОПКИ */}
+      {/* КНОПОЧКИ */}
       <div className={styles.grid}>
 
         {FEATURES.map((f, index) => (
@@ -75,7 +75,7 @@ export default function Features() {
               else if (index === 2) {
                 setOpenCreate(!openCreate)
               }
-
+              // ДНЕВНИК-СЧЕТЧИК-ПРОЙДЕННЫХ-ВИКТОРИН
               else {
                 console.log(f.title)
               }
@@ -98,14 +98,14 @@ export default function Features() {
 
       </div>
 
-      {/* ВИКТОРИНА */}
+      {/* викторина */}
       {openQuiz && (
         <KazakhstanQuiz
           onClose={() => setOpenQuiz(false)}
         />
       )}
 
-      {/* КАРТА */}
+      {/* карта */}
       {openMap && (
 
         <section className={styles.mapSection}>
@@ -178,11 +178,11 @@ export default function Features() {
 
       )}
 
-      {/* СОЗДАНИЕ КОНТЕНТА */}
+      {/* создание контента */}
       {openCreate && (
-        <CreateContent />
+        <CreateContent addStory={addStory} />
       )}
-
+      {/* Дневник-счетчик пройденных викторин */}
     </section>
   )
 }

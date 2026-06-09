@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function CreateContent() {
+export default function CreateContent({ addStory }) {
 
   const [image, setImage] = useState('')
   const [name, setName] = useState('')
@@ -9,14 +9,18 @@ export default function CreateContent() {
 
   function handleSubmit() {
 
-    console.log({
-      image,
-      name,
-      role,
-      source,
-    })
+  addStory({
+    img: image,
+    name,
+    role,
+    href: source,
+  })
 
-  }
+  setImage('')
+  setName('')
+  setRole('')
+  setSource('')
+}
 
   return (
     <section style={styles.wrapper}>
