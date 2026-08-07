@@ -1,0 +1,47 @@
+.create-content {
+    padding: 40px;
+    background: #fff;
+    border-radius: 20px;
+    max-width: 600px;
+    margin: 40px auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.create-content__title {
+    font-size: 32px;
+    margin: 0 0 24px;
+    text-align: center;
+}
+
+.create-content__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.create-content__input {
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+}
+
+.create-content__input:focus {
+    border-color: #1d9e75;
+}
+
+.create-content__button {
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #1d9e75;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.create-content__button:hover {
+    background: #168562;
+}

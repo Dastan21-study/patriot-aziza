@@ -1,43 +1,45 @@
-import { useState } from 'react'
+import { useState } from "react";
+import "./CreateContent.css";
 
 export default function CreateContent({ addStory }) {
-
-  const [image, setImage] = useState('')
-  const [name, setName] = useState('')
-  const [role, setRole] = useState('')
-  const [source, setSource] = useState('')
+  const [image, setImage] = useState("");
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
+  const [source, setSource] = useState("");
 
   function handleSubmit() {
+    if (!image.trim() || !name.trim() || !role.trim() || !source.trim()) {
+      alert("Ошибка: вы не заполнили все поля ввода!");
+      return;
+    }
 
-  addStory({
-    img: image,
-    name,
-    role,
-    href: source,
-  })
+    addStory({
+      img: image,
+      name,
+      role,
+      href: source,
+    });
 
-  setImage('')
-  setName('')
-  setRole('')
-  setSource('')
-}
+    setImage("");
+    setName("");
+    setRole("");
+    setSource("");
+  }
 
   return (
-    <section style={styles.wrapper}>
-
-      <h2 style={styles.title}>
+    <section className="create-content">
+      <h2 className="create-content__title">
         Создать Контент
       </h2>
 
-      <div style={styles.form}>
-
+      <div className="create-content__form">
         {/* URL ФОТО */}
         <input
           type="text"
           placeholder="URL фотографии"
           value={image}
           onChange={(e) => setImage(e.target.value)}
-          style={styles.input}
+          className="create-content__input"
         />
 
         {/* ФИО */}
@@ -46,7 +48,7 @@ export default function CreateContent({ addStory }) {
           placeholder="ФИО"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          style={styles.input}
+          className="create-content__input"
         />
 
         {/* ПРОФЕССИЯ */}
@@ -55,7 +57,7 @@ export default function CreateContent({ addStory }) {
           placeholder="Профессия"
           value={role}
           onChange={(e) => setRole(e.target.value)}
-          style={styles.input}
+          className="create-content__input"
         />
 
         {/* ССЫЛКА */}
@@ -64,60 +66,17 @@ export default function CreateContent({ addStory }) {
           placeholder="Ссылка на источник"
           value={source}
           onChange={(e) => setSource(e.target.value)}
-          style={styles.input}
+          className="create-content__input"
         />
 
         <button
           onClick={handleSubmit}
-          style={styles.button}
+          className="create-content__button"
         >
           Сохранить
         </button>
-
       </div>
-
     </section>
-  )
+  );
 }
 
-const styles = {
-
-  wrapper: {
-    padding: '40px',
-    background: '#fff',
-    borderRadius: '20px',
-    maxWidth: '600px',
-    margin: '40px auto',
-    boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-  },
-
-  title: {
-    fontSize: '32px',
-    marginBottom: '24px',
-    textAlign: 'center',
-  },
-
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '16px',
-  },
-
-  input: {
-    padding: '14px',
-    borderRadius: '12px',
-    border: '1px solid #ccc',
-    fontSize: '16px',
-  },
-
-  button: {
-    padding: '14px',
-    border: 'none',
-    borderRadius: '12px',
-    background: '#1D9E75',
-    color: '#fff',
-    fontSize: '16px',
-    cursor: 'pointer',
-  },
-
-}
